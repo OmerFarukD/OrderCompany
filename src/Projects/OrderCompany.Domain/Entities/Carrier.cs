@@ -14,6 +14,7 @@ namespace OrderCompany.Domain.Entities
         public int CarrierPlusDesiCost{ get; set; }
         public int CarrierConfigurationId{ get; set; }
         public virtual CarrierConfiguration? CarrierConfiguration{ get; set; }
-     
+        public virtual ICollection<Order>? Orders { get; set; }
+
     }
 }
