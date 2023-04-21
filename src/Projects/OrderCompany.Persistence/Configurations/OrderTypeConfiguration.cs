@@ -13,7 +13,7 @@ public class OrderTypeConfiguration : IEntityTypeConfiguration<Order>
         builder.Property(x => x.CarrierId).HasColumnName("CARRIER_ID");
         builder.Property(x => x.OrderDesi).HasColumnName("ORDER_DESI");
         builder.Property(x => x.OrderTime).HasColumnName("ORDER_TIME");
-        builder.Property(x => x.OrderCarrierCost).HasColumnName("ORDER_CARRIER_COST");
+        builder.Property(x => x.OrderCarrierCost).HasColumnName("ORDER_CARRIER_COST").HasColumnType("decimal(18,2)");
         builder.HasOne(x => x.Carrier);
     }
 }

@@ -19,6 +19,8 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Features\Carrier\" />
+	  <Folder Include="Features\Order\Queries" />
+	  <Folder Include="Features\Order\ValidationRules" />
 	  <Folder Include="Services\" />
 	</ItemGroup>
 </Project>

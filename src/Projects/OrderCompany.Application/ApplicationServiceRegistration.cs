@@ -6,6 +6,8 @@ using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using OrderCompany.Application.Features.Carrier.Rules;
+using OrderCompany.Application.Features.CarrierConfiguration.Rules;
+using OrderCompany.Application.Features.Order.Rules;
 using OrderCompany.Application.Pipelines.Validation;
 
 namespace OrderCompany.Application
@@ -16,6 +18,8 @@ namespace OrderCompany.Application
         {
 
             services.AddScoped<CarrierBusinessRules>();
+            services.AddScoped<CarrierConfigurationRules>();
+            services.AddScoped<OrderBusinessRule>();
             
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
             services.AddAutoMapper(Assembly.GetExecutingAssembly());

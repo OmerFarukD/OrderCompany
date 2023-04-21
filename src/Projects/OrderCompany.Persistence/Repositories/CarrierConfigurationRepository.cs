@@ -1,4 +1,6 @@
-﻿using OrderCompany.Application.Services.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
+using OrderCompany.Application.Services.Repositories;
+using OrderCompany.CrossCuttingConcerns.Exceptions;
 using OrderCompany.Domain.Entities;
 using OrderCompany.Persistence.Contexts;
 
@@ -8,5 +10,14 @@ public class CarrierConfigurationRepository: EfRepositoryBase<CarrierConfigurati
 {
     public CarrierConfigurationRepository(AppDbContext context) : base(context)
     {
+    }
+
+    public async Task CarrierConfigurationUpdateForCarrier(int configId, int carrierId)
+    {
+        var conf = await Context.CarrierConfigurations.Where(x => x.Id.Equals(configId)).FirstOrDefaultAsync();
+        
+        conf.CarrierId = carrierId;
+
+        await Context.SaveChangesAsync();
     }
 }

@@ -1,4 +1,6 @@
-﻿using OrderCompany.Application.Services.Repositories;
+﻿using System.Linq.Expressions;
+using OrderCompany.Application.Features.Carrier.Dtos;
+using OrderCompany.Application.Services.Repositories;
 using OrderCompany.Domain.Entities;
 using OrderCompany.Persistence.Contexts;
 
@@ -9,4 +11,6 @@ public class CarrierRepository : EfRepositoryBase<Carrier,AppDbContext>, ICarrie
     public CarrierRepository(AppDbContext context) : base(context)
     {
     }
+
+
 }

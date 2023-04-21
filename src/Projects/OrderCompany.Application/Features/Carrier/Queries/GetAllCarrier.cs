@@ -18,15 +18,15 @@ public static class GetAllCarrier
         private readonly ICarrierRepository _carrierRepository;
         private readonly IMapper _mapper;
 
+        public Handler(ICarrierRepository carrierRepository, IMapper mapper)
+        {
+            _carrierRepository = carrierRepository;
+            _mapper = mapper;
+        }
+
         public async Task<Response<CarrierListModel>> Handle(Query request, CancellationToken cancellationToken)
         {
-            IPaginate<Domain.Entities.Carrier> carriers = await _carrierRepository.GetListAsync(
-                include: x => x.Include(c => c.CarrierConfiguration
-                )!,
-                index: request.PageRequest.Page,
-                size: request.PageRequest.PageSize,
-                cancellationToken: cancellationToken
-            );
+            var carriers = await _carrierRepository.GetListAsync(index: request.PageRequest.Page,size:request.PageRequest.PageSize, cancellationToken:cancellationToken);
             CarrierListModel data = _mapper.Map<CarrierListModel>(carriers);
             return Response<CarrierListModel>.Success(data, "Carrier Listed.", 200);
         }
