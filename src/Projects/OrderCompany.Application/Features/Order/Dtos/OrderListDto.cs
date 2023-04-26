@@ -1,3 +1,10 @@
 ﻿namespace OrderCompany.Application.Features.Order.Dtos;
-
-public record OrderListDto(int Id, int CarrierId, int OrderDesi, DateTime OrderTime, decimal OrderCarrierCost);
+public sealed class OrderListDto
+{
+    public int Id { get; set; }
+    public int CarrierId { get; set; }
+    public string? CarrierName { get; set; }
+    public int OrderDesi { get; set; }
+    public DateTime OrderTime { get; set; }
+    
+}

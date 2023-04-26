@@ -10,7 +10,9 @@ public class MappingProfiles : Profile
     public MappingProfiles()
     {
         CreateMap<Domain.Entities.Order, OrderAddDto>().ReverseMap();
-        CreateMap<Domain.Entities.Order, OrderListDto>().ReverseMap();
+        CreateMap<Domain.Entities.Order, OrderListDto>()
+            .ForMember(d=>d.CarrierName, opt=>opt.MapFrom(s=>s.Carrier!.CarrierName))
+            .ReverseMap();
         CreateMap<Domain.Entities.Order, OrderUpdateDto>().ReverseMap();
         CreateMap<IPaginate<Domain.Entities.Order>, OrderListModel>().ReverseMap();
     }

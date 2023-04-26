@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OrderCompany.Application.Features.Order.Dtos;
 using OrderCompany.Application.Services.Repositories;
+using OrderCompany.CrossCuttingConcerns.Exceptions;
 using OrderCompany.Persistence.Paging;
 
 namespace OrderCompany.Application.Features.Order.Rules;
@@ -9,10 +10,12 @@ public class OrderBusinessRule
 {
 
     private readonly ICarrierRepository _carrierRepository;
+    private readonly IOrderRepository _orderRepository;
 
-    public OrderBusinessRule(ICarrierRepository carrierRepository)
+    public OrderBusinessRule(ICarrierRepository carrierRepository, IOrderRepository orderRepository)
     {
         _carrierRepository = carrierRepository;
+        _orderRepository = orderRepository;
     }
 
     public async Task<OrderResponseDto> OrderDesiRule(int orderDesi)
@@ -34,6 +37,15 @@ public class OrderBusinessRule
         };
         return orderResponseDto;
     }
+
+    public async Task OrderIsFound(int orderId)
+    {
+        var data = await _orderRepository.GetAsync(x => x.Id.Equals(orderId));
+        if (data is null) throw new BusinessException($"Order is not found => id: {orderId}");
+    }
+    
+    
+    // Private Rules
     private async Task<IPaginate<Domain.Entities.Carrier>> DesiRangeRule(int orderDesi)
     {
         var dataIsRanged = await _carrierRepository.GetListAsync(
@@ -46,7 +58,7 @@ public class OrderBusinessRule
 
         return await _carrierRepository.GetListAsync(include:x => x.Include(c => c.CarrierConfiguration!)); 
     }
-
+    
     private  decimal CalculateInvoice(int orderDesi, Domain.Entities.Carrier carrier)
     {
         var orderCarrierPlusDesiCost = carrier.CarrierPlusDesiCost;
@@ -58,7 +70,6 @@ public class OrderBusinessRule
         }
         else
             data = orderCarrierPlusDesiCost;
-        
         return data;
     }
 }

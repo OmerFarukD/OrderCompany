@@ -22,8 +22,8 @@ public class CarrierConfigurationController : BaseController
         var data = await Mediator.Send(new CarrierConfigurationList.Query(pageRequest));
         return ActionResultInstance(data);
     }
-    [HttpDelete("{id:int}")]
-    public async Task<IActionResult> Delete([FromQuery(Name = "id")] int id)
+    [HttpDelete("delete")]
+    public async Task<IActionResult> Delete([FromBody] int id)
     {
         var data = await Mediator.Send(new CarrierConfigurationDelete.Command(id));
         return ActionResultInstance(data);

@@ -53,7 +53,7 @@ namespace OrderCompany.Persistence.Repositories
         public async Task<TEntity> AddAsync(TEntity entity)
         {
             Context.Entry(entity).State = EntityState.Added;
-            await Context.SaveChangesAsync();
+            await Context.SaveChangesAsync().ConfigureAwait(false);
             return entity;
         }
 

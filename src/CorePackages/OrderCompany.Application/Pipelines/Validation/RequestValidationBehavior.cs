@@ -9,8 +9,6 @@ using MediatR;
 
 namespace OrderCompany.Application.Pipelines.Validation
 {
-
-
     public class RequestValidationBehavior<TRequest,TResponse>: IPipelineBehavior<TRequest,TResponse>
     where TRequest : IRequest<TResponse> 
     {

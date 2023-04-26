@@ -22,6 +22,7 @@ namespace OrderCompany.Persistence.Contexts
             base.OnModelCreating(modelBuilder);
         }
 
+        public DbSet<CarrierReport> CarrierReports { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Carrier> Carriers{ get; set; }
         public DbSet<CarrierConfiguration> CarrierConfigurations{ get; set; }

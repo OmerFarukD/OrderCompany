@@ -13,8 +13,11 @@ namespace OrderCompany.Domain.Entities
         public bool CarrierIsActive { get; set; }
         public int CarrierPlusDesiCost{ get; set; }
         public int CarrierConfigurationId{ get; set; }
+
         public virtual CarrierConfiguration? CarrierConfiguration{ get; set; }
         public virtual ICollection<Order>? Orders { get; set; }
+
+        public virtual CarrierReport? CarrierReport { get; set; }
 
     }
 }
